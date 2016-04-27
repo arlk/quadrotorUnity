@@ -62,7 +62,7 @@ public class Kinematics : MonoBehaviour {
 		Side = transform.TransformDirection(Vector3.right);
 		Up = transform.TransformDirection(Vector3.up);
 
-		transform.position = new Vector3(63f, 2.33f, 48.737f); // UNITY's XYZ
+		transform.position = new Vector3(63f, 2.33f, 48.737f);
 
 		// UDP Send Port
 		sport = 3000;
@@ -73,7 +73,7 @@ public class Kinematics : MonoBehaviour {
 
 		// UDP Receive Port
 		rport = 25001;
-		inremoteEndPoint = new IPEndPoint (IPAddress.Any, /*port*/ rport);
+		inremoteEndPoint = new IPEndPoint (IPAddress.Any, rport);
 		inclient = new UdpClient (rport);
 		inclient.Client.ReceiveBufferSize = 48;
 
