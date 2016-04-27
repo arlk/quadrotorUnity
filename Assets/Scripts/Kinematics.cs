@@ -1,14 +1,12 @@
 ﻿/*
  * To change position
- * 
  * transform.localPosition = new Vector3(0, -5, 0);
  * 
  * To control Velocity
- * transform.Translate(Vx,Vy,Vz);
- * 
  * transform.Translate(moveSpeed*Input.GetAxis ("Horizontal")*Time.deltaTime,0f,moveSpeed*Input.GetAxis ("Vertical")*Time.deltaTime);
  *
- * Merged initial audio for rotors
+ * To control body rates
+ * transform.eulerAngles = new Vector3(-(float)p*rotSpeed,-(float)r*rotSpeed,-(float)q*rotSpeed);
  * */
 
 
