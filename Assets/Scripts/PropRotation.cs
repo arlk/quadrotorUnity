@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PropRotation_New : MonoBehaviour {
+public class PropRotation : MonoBehaviour {
 
     GameObject thisprop;
 	GameObject thisprop2;
