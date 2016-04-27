@@ -63,9 +63,6 @@ public class Kinematics : MonoBehaviour {
 	public int rport;
     public int scale;
 
-	//public static AudioSource quad_sound; //new audiosource for quad's sounds.
-	//double velocity_squared; //will be summation of x,y,and z velocities
-
     Vector3 DroneScale;
 	bool firsttime;
 
@@ -84,25 +81,6 @@ public class Kinematics : MonoBehaviour {
 		Side = transform.TransformDirection(Vector3.right);
 		Up = transform.TransformDirection(Vector3.up);
 	
-        /*
-
-		//  Set up audio
-		quad_sound = (AudioSource)gameObject.AddComponent<AudioSource>();
-		AudioClip staticSound; //create an audio clip variable that will take the audioclip file we need for the quad
-
-		staticSound = (AudioClip)Resources.Load("Quadrotor_MidThrottle_firstTake");
-		quad_sound.clip = staticSound; //the file "heli_500_100%" is now a clip in the AudioSource quad_sound
-		quad_sound.loop = true; //enable looping of sound.
-        quad_sound.minDistance = 1f;
-        quad_sound.maxDistance = 17.8f;
-        quad_sound.spatialBlend = 1f;
-        quad_sound.ignoreListenerVolume=true;
-        quad_sound.spread = 194;
-        //quad_sound.mute = true;//INITIALLY SHOULD BE MUTE
-       
-		//quad_sound.dopplerLevel = 3;
-        quad_sound.Play();
-        */
     }
 	
 	// Update is called once per frame
@@ -118,11 +96,9 @@ public class Kinematics : MonoBehaviour {
 
 			inremoteEndPoint = new IPEndPoint (IPAddress.Any, /*port*/ rport);
 			inclient = new UdpClient (rport); // input port
-            //transform.position = new Vector3(174.0f, 1.5f, 304.0f);  OLD coordinates
+
             transform.position = new Vector3(63f, 2.33f, 48.737f); // UNITY's XYZ
-            //transform.localScale = new Vector3(1.5f,1.5f, 1.5f);
-            //transform.localScale = DroneScale;
-            //
+
             const int ProtocolPort = 3000;
 			sendSocket = new Socket(AddressFamily.InterNetwork, 
 			                               SocketType.Dgram, ProtocolType.Udp);
@@ -138,19 +114,14 @@ public class Kinematics : MonoBehaviour {
 			p = 0;
 			q = 0;
 			r = 0;
-			thrust = 25;
 		}
 
 
 
         if (inclient.Available > 0) {
-	
-	
+			
 			byte[] data = inclient.Receive (ref inremoteEndPoint);
 		
-	
-			
-	
 			x = 10f*System.BitConverter.ToDouble (data, 0);
 			y = 10f*System.BitConverter.ToDouble (data, 8);
 			z = 10f*System.BitConverter.ToDouble (data, 16);
@@ -162,65 +133,9 @@ public class Kinematics : MonoBehaviour {
             thrust_prop2 = System.BitConverter.ToDouble(data, 64);
             thrust_prop3 = System.BitConverter.ToDouble(data, 72);
             thrust_prop4 = System.BitConverter.ToDouble(data, 80);
-            //double.TryParse(text, out x);
-            //print(">> x=" + x.ToString());
-            //} else {
-            //	Debug.Log (myPort+" client not available??");
         }
-
-
-
-
-
-
-
-        // uav.Move(moveSpeed*((float)x*Forward + (float)y*Side + (float)z*Up)*Time.deltaTime);
+			
         uav.Move(moveSpeed * (+(float)x * Forward + (float)y * Side + (float)z * Up) * Time.deltaTime);
-		//Debug.Log (z);
-        // rotor audio
- //       velocity_squared = (x * x) + (y * y) + (z * z); //find summ of velocities squared
-                                                        //totalThrust = (t1 + t2 + t3 + t4)/4; //plain  summation for now
-        //quad_sound.volume = 0.7f + (float)(0.1 * velocity_squared);
-		//quad_sound.pitch = 0.7f + (float)(0.6 * Mathf.Sqrt((float)velocity_squared));
-       //quad_sound.pitch = 0.7f + (float)(0.2 * Mathf.Sqrt((float)velocity_squared));
-		if (thrust < 25) {
-			thrust = 25;
-		}
-		thrust -= 25;
-        //
-      //  if (quad_sound.volume <= 0.6)
-      //  {
-      //      quad_sound.volume = 0.6f;
-      //  }
-      //  else
-      //  {
-      //  quad_sound.volume = 0.2f + (float)(0.9 * thrust);
-      //  }
-		
-        //Debug.Log(gameObject.transform.position.z);
-		//quad_sound.pitch = 0.5f + (float)(0.6 * Mathf.Sqrt(System.Math.Abs((float)thrust)));
-		//
-		//Debug.Log (quad_sound.pitch);
-		//Debug.Log (thrust);
-      //  transform.eulerAngles = new Vector3(-(float)p*rotSpeed,-(float)r*rotSpeed,-(float)q*rotSpeed);
-
-/*
-
-        //Conditional statements on boundaries of sound and visibility.
-        if (gameObject.transform.position.x >= 40 || gameObject.transform.position.x <= -15 || gameObject.transform.position.z >= 58.4 || gameObject.transform.position.z <= 39)
-        {
-            quad_sound.mute = true;
-           // gameObject.transform.localScale = new Vector3(0f, 0f, 0f);
-        }
-
-        else
-        {
-            quad_sound.mute = false;
-          //  gameObject.transform.localScale = DroneScale;
-        }
-        //    
-
-        */
 
         byte[] outdata = new byte[12];
         byte[] xout = new byte[4];
@@ -236,11 +151,7 @@ public class Kinematics : MonoBehaviour {
         xd = (int)(10000f *xf);
         yd = (int)(10000 * transform.localPosition.y);
         zd = (int)(10000 * transform.localPosition.z);
-       // xd = 6000+k;
-       // yd = 2000;
-       // zd = 2;
-       // xd = (int)(10000f*uav.transform.position.x);
-       // print(xd);
+
 		xout = System.BitConverter.GetBytes(xd);
 		yout = System.BitConverter.GetBytes(yd);
 		zout = System.BitConverter.GetBytes(zd);
@@ -251,26 +162,5 @@ public class Kinematics : MonoBehaviour {
 			int b = sendSocket.SendTo(outdata, 
 			                  sendEndPoint);
 
-        //print(BitConverter.ToInt32(yout,0));
-        //print(yd);
-
-        //Debug.Log("snet: "+b);
-
-        //	}
-
-
-        //FOR BUTTON PRESSES
-        //if (Input.GetKeyDown("2") || Input.GetKeyDown("6"))
-        //   quad_sound.mute = true;
-     
-
-
-
     }
-	/*
-	// Model for a function that will, e.g., reset parameters 
-	void Ping() {
-		Debug.LogWarning ("Ping "+droneId);
-	}*/
-
 }
