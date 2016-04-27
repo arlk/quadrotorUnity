@@ -94,12 +94,10 @@ public class AudioThrust : MonoBehaviour
         //Conditional statements on boundaries of sound and visibility.
         if (gameObject.transform.position.x >= 55 || gameObject.transform.position.x <= -11 || gameObject.transform.position.z >= 58.4 || gameObject.transform.position.z <= 39)
         {
-            //quad_sound.mute = true;
             prop_1_sound.mute = true;
             prop_2_sound.mute = true;
             prop_3_sound.mute = true;
             prop_4_sound.mute = true;
-            gameObject.transform.localScale = new Vector3(0f, 0f, 0f);
         }
 
         else
@@ -108,7 +106,6 @@ public class AudioThrust : MonoBehaviour
             prop_2_sound.mute = false;
             prop_3_sound.mute = false;
             prop_4_sound.mute = false;
-            gameObject.transform.localScale = new Vector3(1f,1f,1f);
         }
     }
 }
