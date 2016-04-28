@@ -36,10 +36,6 @@ public class Kinematics : MonoBehaviour {
 	double p;
 	double q;
 	double r;
-    public double thrust_prop1;
-    public double thrust_prop2;
-    public double thrust_prop3;
-    public double thrust_prop4;
 
 	Socket sendSocket;
 	EndPoint sendEndPoint ;
@@ -53,26 +49,19 @@ public class Kinematics : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		moveSpeed = 1f;
-		rotSpeed = 1f*180/3.1415f;
-
 		uav = GetComponent<CharacterController>();
 
         Forward = transform.TransformDirection(Vector3.forward);
 		Side = transform.TransformDirection(Vector3.right);
 		Up = transform.TransformDirection(Vector3.up);
 
-		transform.position = new Vector3(63f, 2.33f, 48.737f);
-
 		// UDP Send Port
-		sport = 3000;
 		sendSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 		IPAddress sendTo = IPAddress.Parse("127.0.0.1");
 		sendEndPoint = new IPEndPoint(sendTo, sport);
 		sendSocket.SendBufferSize = 0;
 
 		// UDP Receive Port
-		rport = 25001;
 		inremoteEndPoint = new IPEndPoint (IPAddress.Any, rport);
 		inclient = new UdpClient (rport);
 		inclient.Client.ReceiveBufferSize = 48;
@@ -84,12 +73,6 @@ public class Kinematics : MonoBehaviour {
 		p = 0;
 		q = 0;
 		r = 0;
-
-		thrust_prop1 = 0;
-		thrust_prop2 = 0;
-		thrust_prop3 = 0;
-		thrust_prop4 = 0;
-	
     }
 	
 	// Update is called once per frame
@@ -106,11 +89,6 @@ public class Kinematics : MonoBehaviour {
 			p = System.BitConverter.ToDouble (data, 24);
 			q = System.BitConverter.ToDouble (data, 32);
 			r = System.BitConverter.ToDouble (data, 40);
-
-            thrust_prop1 = System.BitConverter.ToDouble(data, 48);
-            thrust_prop2 = System.BitConverter.ToDouble(data, 56);
-            thrust_prop3 = System.BitConverter.ToDouble(data, 64);
-            thrust_prop4 = System.BitConverter.ToDouble(data, 72);
         }
 			
         uav.Move(moveSpeed * ((float)x * Forward + (float)y * Side + (float)z * Up) * Time.deltaTime);
@@ -136,6 +114,6 @@ public class Kinematics : MonoBehaviour {
 		System.Buffer.BlockCopy(yout,0,outdata,4,4);
 		System.Buffer.BlockCopy(zout,0,outdata,8,4);
 
-		int b = sendSocket.SendTo(outdata, sendEndPoint);
+		sendSocket.SendTo(outdata, sendEndPoint);
     }
 }
