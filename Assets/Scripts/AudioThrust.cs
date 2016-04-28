@@ -10,6 +10,7 @@ public class AudioThrust : MonoBehaviour
     public static AudioSource prop_2_sound;
     public static AudioSource prop_3_sound;
     public static AudioSource prop_4_sound;
+	float distanceToCamera;
 
     // Use this for initialization
     void Start()
@@ -62,6 +63,8 @@ public class AudioThrust : MonoBehaviour
         prop_3_sound.Play();
         prop_4_sound.Play();
 
+		distanceToCamera = 0.0f;
+
     }
 
     // Update is called once per frame
@@ -78,6 +81,7 @@ public class AudioThrust : MonoBehaviour
         prop_3_sound.pitch = 0.8f + (float)(0.001 * Mathf.Sqrt(System.Math.Abs((float)gameObject.GetComponent<Kinematics>().thrust_prop3)));
         prop_4_sound.pitch = 0.8f + (float)(0.001* Mathf.Sqrt(System.Math.Abs((float)gameObject.GetComponent<Kinematics>().thrust_prop4)));
 
+		distanceToCamera = 
         //Conditional statements on boundaries of sound and visibility.
 //        if (gameObject.transform.position.x >= 55 || gameObject.transform.position.x <= -11 || gameObject.transform.position.z >= 58.4 || gameObject.transform.position.z <= 39)
 //        {
