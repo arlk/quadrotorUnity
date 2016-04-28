@@ -107,10 +107,10 @@ public class Kinematics : MonoBehaviour {
 			q = System.BitConverter.ToDouble (data, 32);
 			r = System.BitConverter.ToDouble (data, 40);
 
-            thrust_prop1 = System.BitConverter.ToDouble(data, 56);
-            thrust_prop2 = System.BitConverter.ToDouble(data, 64);
-            thrust_prop3 = System.BitConverter.ToDouble(data, 72);
-            thrust_prop4 = System.BitConverter.ToDouble(data, 80);
+            thrust_prop1 = System.BitConverter.ToDouble(data, 48);
+            thrust_prop2 = System.BitConverter.ToDouble(data, 56);
+            thrust_prop3 = System.BitConverter.ToDouble(data, 64);
+            thrust_prop4 = System.BitConverter.ToDouble(data, 72);
         }
 			
         uav.Move(moveSpeed * ((float)x * Forward + (float)y * Side + (float)z * Up) * Time.deltaTime);
