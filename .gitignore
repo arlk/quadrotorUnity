@@ -29,6 +29,14 @@ sysinfo.txt
 *.asv
 *.autosave
 
+# Simulink original files 
+*.slx.original
+*.slx.r2014b
+*.slx.r2015a
+*.slx.r2015b
+*.slx.r2016a
+*.slx.r2016b
+
 # OSX / *nix default autosave extension
 *.m~
 
