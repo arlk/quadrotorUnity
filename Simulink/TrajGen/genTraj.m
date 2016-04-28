@@ -1,4 +1,4 @@
-function y = genTraj(IC,FC,tauf,h,ONOFF)
+function [y, Sf] = genTraj(IC,FC,tauf,h,ONOFF)
 
 %% Interface
 %   IC,FC   - terminal conditions
@@ -66,6 +66,6 @@ xf3p=[0; 0; 0];
      S(3,i+1)=x(3,1);
  end
 % 
-
+Sf = S;
 y=a;
 end
