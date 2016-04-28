@@ -42,6 +42,12 @@ sysinfo.txt
 
 # Compiled MEX binaries (all platforms)
 *.mex*
+*.mdl.*
+
+# dll files
+*.dll
 
 # Simulink Code Generation
-slprj/
+slprj/*
+bin/*
+deps/*
