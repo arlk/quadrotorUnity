@@ -1,6 +1,14 @@
 clc
 clear all
+%%%%% Load Polynomial Param %%%%
+try
+load('PolynomialParam.mat');
+catch
+run('..\TrajGen\ConvertToTimeseries')
+error(['Please run parameter generation script for trajectory!' ...
+' We have executed the script for you, but please check if your settings are correct']);
 
+end
 %%%%% Aerial Vehicle Model %%%%%
 
 m = 0.650*4; % mass = 0.650[kg]
@@ -85,5 +93,3 @@ D_angle = 0.2;
 % I_angle = .2;
 % D_angle = 0.5;
 
-%%% DATA SAMPLE %%%
-Data_T_Smpl = 0.01;

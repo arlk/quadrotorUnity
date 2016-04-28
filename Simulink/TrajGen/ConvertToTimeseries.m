@@ -25,3 +25,4 @@ time = 0.001:0.001:length(x)*0.001;
 
 clear x y time speed
 csvwrite('Trajectories.csv', [ToPyPath] );
+save('..\QuadSimUnity\PolynomialParam.mat','a');
