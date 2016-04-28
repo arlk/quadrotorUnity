@@ -17,12 +17,9 @@ l = 0.23; % arm length      [m]
 I = diag([Ix_0, Iy_0, Iz_0]);
 
 %%%%% Actuator Dynamics %%%%%
-s = tf('s');
+
 
 G_motor = tf([75],[1 75]);
-%G_motor = tf([100],[1 100]);
-%G_motor = tf([0.936],[0.178 1]);
-
 Delay_Act = 0.003; 
 
 H_motor = [G_motor 0 0 0 0 0 0 0; ...
@@ -34,16 +31,6 @@ H_motor = [G_motor 0 0 0 0 0 0 0; ...
            0 0 0 0 0 0 G_motor 0; ...
            0 0 0 0 0 0 0 G_motor];
        
-T_Fail_1st = 2000
-T_Fail_2nd = 2000
-T_Fail_3rd = 2000
-T_Fail_4th = 1200000
-
-Fail_State_1st = [1 1 1 1 1 1 1 1]';
-Fail_State_2nd = [1 1 1 1 1 1 1 1]';
-Fail_State_3rd = [1 1 1 1 1 1 1 1]';
-Fail_State_4th = [1 1 1 1 1 1 1 1]';
-
 
 %%%%% L1 Adaptive Controller %%%%%
 
