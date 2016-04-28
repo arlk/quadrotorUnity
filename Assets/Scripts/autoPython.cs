@@ -8,22 +8,29 @@ using System.Text;
 public class autoPython : MonoBehaviour {
 
 	public int rport;
-	double scenario;
 	IPEndPoint inremoteEndPoint;
 	UdpClient inclient;
+
+	double scenario;
 	double prevScenario;
-	float DroneSize;
+
+	public float droneScale;
 	public float height;
+
+	public Vector3 startPosnA;
+	public Vector3 startPosnB;
+	public Vector3 startPosnC;
+
+	AudioThrust propellers;
+
 	// Use this for initialization
 	void Start () {
-		DroneSize = 1f;
-		rport = 25003;
 		scenario = 0;
-		inremoteEndPoint = new IPEndPoint (IPAddress.Any, /*port*/ rport);
+		prevScenario = -1;
+
+		inremoteEndPoint = new IPEndPoint (IPAddress.Any, rport);
 		inclient = new UdpClient (rport);
 		inclient.Client.ReceiveBufferSize = 8;
-		prevScenario = -1;
-		height = 2f;
 	}
 	
 	// Update is called once per frame
@@ -42,38 +49,24 @@ public class autoPython : MonoBehaviour {
 			prevScenario = scenario;
 			if (scenario == 0) {
 				//Switch off everything
-				transform.localPosition = new Vector3 (0f, 0f, 0f);
-				transform.localScale = new Vector3 (0f, 0f, 0f);
-//				AudioThrust.quad_sound.mute = true;
-			} else {
-				if (scenario % 4 == 1) {
+				transform.localPosition = Vector3.zero;
+				transform.localScale = Vector3.zero;
+				propellers.MuteAll ();
+			} 
+			else {
+				if (scenario == 1) {
 					//Posn A
-					transform.localPosition = new Vector3 (-17.9f, height, 63.94f);
-				} else if (scenario % 4 == 2) {
+					transform.localPosition = startPosnA;
+				} else if (scenario == 2) {
 					//Posn B
-					transform.localPosition = new Vector3 (16.7f, height, 30.67f);
-				} else if (scenario % 4 == 3) {
+					transform.localPosition = startPosnB;
+				} else if (scenario == 3) {
 					//Posn C
-					transform.localPosition = new Vector3 (15.85f, height, 64.04f);
-				} else if (scenario % 4 == 0) {
-					//Posn D
-					transform.localPosition = new Vector3 (-15.32f, height, 30.67f);
-				}
+					transform.localPosition = startPosnC;
+				} 
 
-				if (scenario <= 4) {
-					//Visual+Audio
-					transform.localScale = DroneSize*Vector3.one;
-//					AudioThrust.quad_sound.mute = false;
-				} else if (scenario <= 8) {
-					//Visual
-					transform.localScale = DroneSize*Vector3.one;
-//					AudioThrust.quad_sound.mute = true;
-				} else if (scenario <= 12) {
-					//Audio
-					transform.localScale = new Vector3 (0f, 0f, 0f);
-//					AudioThrust.quad_sound.mute = false;
-				}
-
+				transform.localScale = droneScale*Vector3.one;
+				propellers.UnmuteAll ();
 			}
 	
 		}

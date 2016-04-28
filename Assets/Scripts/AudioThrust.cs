@@ -63,4 +63,20 @@ public class AudioThrust : MonoBehaviour
 		prop_3_sound.pitch = 0.8f + (float)(0.001 * Mathf.Sqrt((float)thrust_prop3));
 		prop_4_sound.pitch = 0.8f + (float)(0.001 * Mathf.Sqrt((float)thrust_prop4));
     }
+
+	public void MuteAll()
+	{
+		prop_1_sound.mute = true;
+		prop_2_sound.mute = true;
+		prop_3_sound.mute = true;
+		prop_4_sound.mute = true;
+	}
+
+	public void UnmuteAll()
+	{
+		prop_1_sound.mute = false;
+		prop_2_sound.mute = false;
+		prop_3_sound.mute = false;
+		prop_4_sound.mute = false;
+	}
 }
