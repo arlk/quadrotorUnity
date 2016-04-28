@@ -44,7 +44,7 @@ public class autoPython : MonoBehaviour {
 				//Switch off everything
 				transform.localPosition = new Vector3 (0f, 0f, 0f);
 				transform.localScale = new Vector3 (0f, 0f, 0f);
-				Audio.quad_sound.mute = true;
+				AudioThrust.quad_sound.mute = true;
 			} else {
 				if (scenario % 4 == 1) {
 					//Posn A
@@ -63,15 +63,15 @@ public class autoPython : MonoBehaviour {
 				if (scenario <= 4) {
 					//Visual+Audio
 					transform.localScale = DroneSize*Vector3.one;
-					Audio.quad_sound.mute = false;
+					AudioThrust.quad_sound.mute = false;
 				} else if (scenario <= 8) {
 					//Visual
 					transform.localScale = DroneSize*Vector3.one;
-					Audio.quad_sound.mute = true;
+					AudioThrust.quad_sound.mute = true;
 				} else if (scenario <= 12) {
 					//Audio
 					transform.localScale = new Vector3 (0f, 0f, 0f);
-					Audio.quad_sound.mute = false;
+					AudioThrust.quad_sound.mute = false;
 				}
 
 			}
