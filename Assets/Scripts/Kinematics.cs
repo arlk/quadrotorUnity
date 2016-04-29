@@ -24,6 +24,8 @@ public class Kinematics : MonoBehaviour {
 	public float moveSpeed; 
 	public float rotSpeed; 
 
+	public bool move;
+
 	CharacterController uav ;
 
 	Vector3 Forward;
@@ -73,6 +75,8 @@ public class Kinematics : MonoBehaviour {
 		p = 0;
 		q = 0;
 		r = 0;
+
+		move = false;
     }
 	
 	// Update is called once per frame
@@ -82,17 +86,18 @@ public class Kinematics : MonoBehaviour {
 			
 			byte[] data = inclient.Receive (ref inremoteEndPoint);
 		
-			x = 10f*System.BitConverter.ToDouble (data, 0);
-			y = 10f*System.BitConverter.ToDouble (data, 8);
-			z = 10f*System.BitConverter.ToDouble (data, 16);
+			x = System.BitConverter.ToDouble (data, 0);
+			y = System.BitConverter.ToDouble (data, 8);
+			z = System.BitConverter.ToDouble (data, 16);
 
 			p = System.BitConverter.ToDouble (data, 24);
 			q = System.BitConverter.ToDouble (data, 32);
 			r = System.BitConverter.ToDouble (data, 40);
         }
-			
-        uav.Move(moveSpeed * ((float)x * Forward + (float)y * Side + (float)z * Up) * Time.deltaTime);
-		transform.eulerAngles = new Vector3(-(float)p*rotSpeed,-(float)r*rotSpeed,-(float)q*rotSpeed);
+
+		float moveFloat = move ? 1.0f : 0.0f;
+		uav.Move(moveSpeed * moveFloat * ((float)x * Forward + (float)y * Side + (float)z * Up) * Time.deltaTime);
+		transform.eulerAngles = rotSpeed * moveFloat * new Vector3(-(float)p,-(float)r,-(float)q);
 
         byte[] outdata = new byte[12];
         byte[] xout = new byte[4];

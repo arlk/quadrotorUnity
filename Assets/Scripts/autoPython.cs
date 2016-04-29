@@ -22,6 +22,7 @@ public class autoPython : MonoBehaviour {
 	public Vector3 startPosnC;
 
 	AudioThrust propellers;
+	Kinematics movement;
 
 	// Use this for initialization
 	void Start () {
@@ -31,6 +32,9 @@ public class autoPython : MonoBehaviour {
 		inremoteEndPoint = new IPEndPoint (IPAddress.Any, rport);
 		inclient = new UdpClient (rport);
 		inclient.Client.ReceiveBufferSize = 8;
+
+		propellers = transform.GetComponent<AudioThrust> ();
+		movement = transform.GetComponent<Kinematics> ();
 	}
 	
 	// Update is called once per frame
@@ -52,6 +56,7 @@ public class autoPython : MonoBehaviour {
 				transform.localPosition = Vector3.zero;
 				transform.localScale = Vector3.zero;
 				propellers.MuteAll ();
+				movement.move = false;
 			} 
 			else {
 				if (scenario == 1) {
@@ -67,6 +72,7 @@ public class autoPython : MonoBehaviour {
 
 				transform.localScale = droneScale*Vector3.one;
 				propellers.UnmuteAll ();
+				movement.move = true;
 			}
 	
 		}

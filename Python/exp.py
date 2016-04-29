@@ -10,7 +10,7 @@ import sys
 
 __author__ = "Arun Lakshmanan"
 
-name = raw_input("Name :")
+name = raw_input("Subject ID :")
 name = name.replace(" ", "")
 dateToday = str(datetime.date.today())
 
