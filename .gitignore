@@ -54,6 +54,10 @@ slprj/*
 bin/*
 deps/*
 
+# Matlab files
+.mat
+.csv
+
 # # # Python
 # Byte-compiled / optimized / DLL files
 __pycache__/
