@@ -42,9 +42,10 @@ while True:
     
     if elapsed > 25:
         start = False
+        reset = True
+        scenario = 0
        
-    # if elapsed > 15:
-        # reset = True
+    # Reiterate
 
     msg = struct.pack('<??', start, reset)
     sendSock.sendto(msg, (UDP_IP, UDP_SEND_SIMLK_PORT))
