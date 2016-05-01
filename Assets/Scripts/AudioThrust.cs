@@ -16,6 +16,9 @@ public class AudioThrust : MonoBehaviour
 	double thrust_prop3;
 	double thrust_prop4;
 
+	public float volumeLvl;
+	public float pitchLvl;
+
 	IPEndPoint inremoteEndPoint;
 	UdpClient inclient;
 	public int rport;
@@ -53,15 +56,15 @@ public class AudioThrust : MonoBehaviour
 			thrust_prop4 = System.BitConverter.ToDouble(data, 24);
 		}
 
-        prop_1_sound.volume = 0.5f + (float)(0.0000008 * thrust_prop1);
-        prop_2_sound.volume = 0.5f + (float)(0.0000008 * thrust_prop2);
-        prop_3_sound.volume = 0.5f + (float)(0.0000008 * thrust_prop3);
-        prop_4_sound.volume = 0.5f + (float)(0.0000008 * thrust_prop4);
+        prop_1_sound.volume = volumeLvl + (float)(0.0000008 * thrust_prop1);
+		prop_2_sound.volume = volumeLvl + (float)(0.0000008 * thrust_prop2);
+		prop_3_sound.volume = volumeLvl + (float)(0.0000008 * thrust_prop3);
+		prop_4_sound.volume = volumeLvl + (float)(0.0000008 * thrust_prop4);
 
-		prop_1_sound.pitch = 0.8f + (float)(0.001 * Mathf.Sqrt((float)thrust_prop1));
-		prop_2_sound.pitch = 0.8f + (float)(0.001 * Mathf.Sqrt((float)thrust_prop2));
-		prop_3_sound.pitch = 0.8f + (float)(0.001 * Mathf.Sqrt((float)thrust_prop3));
-		prop_4_sound.pitch = 0.8f + (float)(0.001 * Mathf.Sqrt((float)thrust_prop4));
+		prop_1_sound.pitch = pitchLvl + (float)(0.001 * Mathf.Sqrt((float)thrust_prop1));
+		prop_2_sound.pitch = pitchLvl + (float)(0.001 * Mathf.Sqrt((float)thrust_prop2));
+		prop_3_sound.pitch = pitchLvl + (float)(0.001 * Mathf.Sqrt((float)thrust_prop3));
+		prop_4_sound.pitch = pitchLvl + (float)(0.001 * Mathf.Sqrt((float)thrust_prop4));
     }
 
 	public void MuteAll()

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PropRotation : MonoBehaviour {
 
-    GameObject thisprop;
+    GameObject thisprop1;
 	GameObject thisprop2;
 	GameObject thisprop3;
 	GameObject thisprop4;
@@ -13,7 +13,7 @@ public class PropRotation : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-		thisprop = GameObject.Find("Prop1");
+		thisprop1 = GameObject.Find("Prop1");
 		thisprop2 = GameObject.Find("Prop2");
 		thisprop3 = GameObject.Find("Prop3");
 		thisprop4 = GameObject.Find("Prop4");
@@ -26,7 +26,7 @@ public class PropRotation : MonoBehaviour {
 	void Update () {
 		angle = angle + 80f;
 
-		thisprop.transform.eulerAngles = new Vector3(-90f ,-(float)angle,0f);
+		thisprop1.transform.eulerAngles = new Vector3(-90f ,-(float)angle,0f);
 		thisprop2.transform.eulerAngles = new Vector3(-90f,(float)angle ,-0f);
 		thisprop3.transform.eulerAngles = new Vector3(-90f,-(float)angle ,-0f);
 		thisprop4.transform.eulerAngles = new Vector3(-90f,(float)angle ,-0f);
