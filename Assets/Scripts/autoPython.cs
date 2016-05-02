@@ -93,7 +93,7 @@ public class autoPython : MonoBehaviour {
 	
 		}
 
-		byte[] outdata = new byte[24];
+		byte[] outdata = new byte[28];
 
 		byte[] vxout = new byte[4];
 		byte[] vyout = new byte[4];
@@ -103,6 +103,8 @@ public class autoPython : MonoBehaviour {
 		byte[] dyout = new byte[4];
 		byte[] dzout = new byte[4];
 
+		byte[] startout = new byte[4];
+
 		vxout = System.BitConverter.GetBytes(movement.vx);
 		vyout = System.BitConverter.GetBytes(movement.vy);
 		vzout = System.BitConverter.GetBytes(movement.vz);
@@ -111,12 +113,15 @@ public class autoPython : MonoBehaviour {
 		dyout = System.BitConverter.GetBytes(transform.localPosition.z - mainCamera.transform.localPosition.z);
 		dzout = System.BitConverter.GetBytes(transform.localPosition.y - mainCamera.transform.localPosition.y);
 
+		startout = System.BitConverter.GetBytes (1.0f);
+
 		System.Buffer.BlockCopy(vxout,0,outdata,0,4);
 		System.Buffer.BlockCopy(vyout,0,outdata,4,4);
 		System.Buffer.BlockCopy(vzout,0,outdata,8,4);
 		System.Buffer.BlockCopy(dxout,0,outdata,12,4);
 		System.Buffer.BlockCopy(dyout,0,outdata,16,4);
 		System.Buffer.BlockCopy(dzout,0,outdata,20,4);
+		System.Buffer.BlockCopy(startout,0,outdata,24,4);
 
 		sendSocket.SendTo(outdata, sendEndPoint);
 
