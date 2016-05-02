@@ -32,15 +32,15 @@ public class Kinematics : MonoBehaviour {
 	Vector3 Side;
 	Vector3 Up;
 
-    double x;
-	double y;
-	double z;
+    public double vx;
+	public double vy;
+	public double vz;
 	double p;
 	double q;
 	double r;
 
 	Socket sendSocket;
-	EndPoint sendEndPoint ;
+	EndPoint sendEndPoint;
 
 	IPEndPoint inremoteEndPoint;
 	UdpClient inclient;
@@ -68,9 +68,9 @@ public class Kinematics : MonoBehaviour {
 		inclient = new UdpClient (rport);
 		inclient.Client.ReceiveBufferSize = 48;
 
-		x = 0;
-		y = 0;
-		z = 0;
+		vx = 0;
+		vy = 0;
+		vz = 0;
 
 		p = 0;
 		q = 0;
@@ -86,9 +86,9 @@ public class Kinematics : MonoBehaviour {
 			
 			byte[] data = inclient.Receive (ref inremoteEndPoint);
 		
-			x = System.BitConverter.ToDouble (data, 0);
-			y = System.BitConverter.ToDouble (data, 8);
-			z = System.BitConverter.ToDouble (data, 16);
+			vx = System.BitConverter.ToDouble (data, 0);
+			vy = System.BitConverter.ToDouble (data, 8);
+			vz = System.BitConverter.ToDouble (data, 16);
 
 			p = System.BitConverter.ToDouble (data, 24);
 			q = System.BitConverter.ToDouble (data, 32);
@@ -96,7 +96,7 @@ public class Kinematics : MonoBehaviour {
         }
 
 		float moveFloat = move ? 1.0f : 0.0f;
-		uav.Move(moveSpeed * moveFloat * ((float)x * Forward + (float)y * Side + (float)z * Up) * Time.deltaTime);
+		uav.Move(moveSpeed * moveFloat * ((float)vx * Forward + (float)vy * Side + (float)vz * Up) * Time.deltaTime);
 		transform.eulerAngles = rotSpeed * moveFloat * new Vector3(-(float)p,-(float)r,-(float)q);
 
         byte[] outdata = new byte[12];
