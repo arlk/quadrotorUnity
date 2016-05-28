@@ -74,7 +74,7 @@ dateToday = str(datetime.date.today())
 Ts = 0.01
 reset = False
 start = False
-latched = False
+latched = True
 elapsed = 0.0
 experimentStart = 0.0
 previousTime = unix.time()
@@ -129,11 +129,17 @@ try:
         
         elapsed += unix.time() - previousTime
         previousTime = unix.time()
-        
+		
+        if latched:
+			experimentStart=elapsed
+			if startFlag:
+				latched=False
+		
         ##if startFlag and latched:
         ##    latched = False
         ##else:
          ##  experimentStart = elapsed
+		 
             
         if elapsed - experimentStart > initalWaitTime - 5:
             scenario = myScenario
