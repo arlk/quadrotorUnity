@@ -9,11 +9,16 @@ import ovr
 import sys
 import serial
 
-__author__ = "Arun Lakshmanan"
+initalWaitTime = 20.0
+droneFlybyTime = 10.0
+postWaitTime = 10.0
+iterations = 3
+MatlabScenario = 0
 
-name = 'myname'
+name = raw_input("Subject ID :")
+name = name.replace(" ", "")
 myScenario = 1
-myCom = 'Com8'
+myCom = 'Com7'
 
 def wait_for_ack():
    ddata = ""
@@ -67,10 +72,6 @@ timeSec = 0
 
 dateToday = str(datetime.date.today())
 Ts = 0.01
-initalWaitTime = 20.0
-droneFlybyTime = 10.0
-postWaitTime = 10.0
-iterations = 3
 reset = False
 start = False
 latched = False
@@ -122,17 +123,17 @@ try:
             vx,vy,vz,dx,dy,dz,startFlag = 0,0,0,0,0,0,0
         
         # CSV Writing Stuff
-        with open(r'Logs\ '+name+'-'+dateToday+'-'+str(scenario)+'.csv','a')as csvfile:
+        with open(r'Logs\ '+name+'-'+dateToday+'-'+str(MatlabScenario)+'.csv','a')as csvfile:
             dataLog = csv.writer(csvfile, delimiter=',')
             dataLog.writerow([vx, vy, vz, dx, dy, dz, angularAcc.x, angularAcc.y, angularAcc.z, linearAcc.x, linearAcc.y, linearAcc.z, ppg, gsr, elapsed])    
         
         elapsed += unix.time() - previousTime
         previousTime = unix.time()
         
-        if startFlag and latched:
-            latched = False
-        else:
-            experimentStart = elapsed
+        ##if startFlag and latched:
+        ##    latched = False
+        ##else:
+         ##  experimentStart = elapsed
             
         if elapsed - experimentStart > initalWaitTime - 5:
             scenario = myScenario
