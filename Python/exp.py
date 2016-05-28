@@ -149,6 +149,7 @@ try:
         if elapsed - experimentStart > initalWaitTime+droneFlybyTime+postWaitTime and iterations > 0:
             experimentStart = elapsed
             iterations -= 1
+            reset=False
         
         if iterations <= 0:
             break
