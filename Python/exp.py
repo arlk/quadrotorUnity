@@ -134,12 +134,6 @@ try:
 		experimentStart=elapsed
 		if startFlag:
 			latched=False
-		
-        ##if startFlag and latched:
-        ##    latched = False
-        ##else:
-         ##  experimentStart = elapsed
-		 
             
         if elapsed - experimentStart > initalWaitTime - 5:
             scenario = myScenario
