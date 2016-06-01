@@ -8,17 +8,30 @@ import csv
 import ovr
 import sys
 import serial
+import random
 
+############ USER _ CHANGEABLE ###############
+""" Wait Times """
 initalWaitTime = 20.0
 droneFlybyTime = 10.0
+betweenFlightTime_starting = float(random.randint(3,7)) 
+betweenFlightTime_ending = float(random.randint(3,7))
 postWaitTime = 10.0
-iterations = 3
-MatlabScenario = 0
+
+""" Iterations """
+num_iterations = 3
+
+""" Scenario """
+MatlabScenario = 1
+#############################################
+
+myScenario = MatlabScenario
 
 name = raw_input("Subject ID :")
 name = name.replace(" ", "")
-myScenario = 1
-myCom = 'Com7'
+
+myCom = raw_input("COM Port for Shimmer :")
+myCom = myCom.replace(" ", "")
 
 def wait_for_ack():
    ddata = ""
@@ -79,6 +92,7 @@ elapsed = 0.0
 experimentStart = 0.0
 previousTime = unix.time()
 scenario = 0
+iterations = num_iterations
 
 try:
     while True:
@@ -134,19 +148,30 @@ try:
 		experimentStart=elapsed
 		if startFlag:
 			latched=False
-            
-        if elapsed - experimentStart > initalWaitTime - 5:
-            scenario = myScenario
         
-        if elapsed - experimentStart > initalWaitTime:
+        if num_iterations == iterations:
+        	initWait = initialWaitTime
+        	postWait = betweenFlightTime_ending
+        elif iterations == 1:
+        	initWait = betweenFlighTime_starting
+        	postWait = postWaitTime
+        else:
+        	initWait = betweenFlightTime_starting
+        	postWait = betweenFlightTime_ending
+        
+        
+        if elapsed - experimentStart > initWait:
+            scenario = myScenario # - 5.0
+        
+        if elapsed - experimentStart > initWait:
             start = True
         
-        if elapsed - experimentStart > initalWaitTime+droneFlybyTime:
+        if elapsed - experimentStart > initWait+droneFlybyTime:
             start = False
             reset = True
             scenario = 0
             
-        if elapsed - experimentStart > initalWaitTime+droneFlybyTime+postWaitTime and iterations > 0:
+        if elapsed - experimentStart > initWait+droneFlybyTime+postWait and iterations > 0:
             experimentStart = elapsed
             iterations -= 1
             reset=False
