@@ -131,9 +131,9 @@ try:
         previousTime = unix.time()
 		
         if latched:
-			experimentStart=elapsed
-			if startFlag:
-				latched=False
+		experimentStart=elapsed
+		if startFlag:
+			latched=False
 		
         ##if startFlag and latched:
         ##    latched = False
