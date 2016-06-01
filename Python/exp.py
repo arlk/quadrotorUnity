@@ -125,7 +125,7 @@ try:
         # CSV Writing Stuff
         with open(r'Logs\ '+name+'-'+dateToday+'-'+str(MatlabScenario)+'.csv','a')as csvfile:
             dataLog = csv.writer(csvfile, delimiter=',')
-            dataLog.writerow([vx, vy, vz, dx, dy, dz, angularAcc.x, angularAcc.y, angularAcc.z, linearAcc.x, linearAcc.y, linearAcc.z, ppg, gsr, elapsed])    
+            dataLog.writerow([startFlag, vx, vy, vz, dx, dy, dz, angularAcc.x, angularAcc.y, angularAcc.z, linearAcc.x, linearAcc.y, linearAcc.z, ppg, gsr, elapsed])    
         
         elapsed += unix.time() - previousTime
         previousTime = unix.time()
